@@ -50,9 +50,9 @@ namespace BuklyBookWeb.Areas.Admin.Controllers
             }
             else
             {
-
+                productVM.Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+                return View(productVM);
             }
-            return View(productVM);
         }
 
         [HttpPost]
@@ -65,15 +65,31 @@ namespace BuklyBookWeb.Areas.Admin.Controllers
                 if(file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"Images\Products");
+                    var uploads = Path.Combine(wwwRootPath, @"Images\Products\");
                     var extension = Path.GetExtension(file.FileName);
+                    if(obj.Product.ImageUrl != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
                     using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension),FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
-                    obj.Product.ImageUrl = @"\Images\Products" + fileName + extension;
+                    obj.Product.ImageUrl = @"\Images\Products\" + fileName + extension;
                 }
+                if(obj.Product.Id == 0)
+                {
                 _unitOfWork.Product.Add(obj.Product);
+
+                }
+                else
+                {
+                    _unitOfWork.Product.update(obj.Product);
+                }
                 _unitOfWork.Save();
                 TempData["success"] = "Product created Successfully";
                 return RedirectToAction("Index");
@@ -119,7 +135,7 @@ namespace BuklyBookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var productList = _unitOfWork.Product.GetAll();
+            var productList = _unitOfWork.Product.GetAll(includeProperties:"category,CoverType");
             return Json(new { data = productList });
         }
         #endregion

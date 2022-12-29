@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -27,31 +28,38 @@ namespace BulkyBook.Models
         public string Author { get; set; }
         [Required]
         [Range(1, 10000)]
+        [DisplayName("Price for List Price")]
         public double ListPrice { get; set; }
 
         [Required]
         [Range(1, 10000)]
+        [DisplayName("Price for 1-50")]
         public double Price { get; set; }
 
         [Required]
         [Range(1, 10000)]
+        [DisplayName("Price for 51-100")]
         public double ListPrice50 { get; set; }
 
         [Required]
         [Range(1, 10000)]
+        [DisplayName("Price for 100+")]
         public double ListPrice100 { get; set; }
 
         [ValidateNever]
+        [DisplayName("Image")]
         public string ImageUrl { get; set; }
         
         
         [Required]
+        [DisplayName("Category")]
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         [ValidateNever]
         public Category category { get; set; }
         
         [Required]
+        [DisplayName("Cover Type")]
         public int CoverTypeId { get; set; }
         [ForeignKey("CoverTypeId")]
         [ValidateNever]

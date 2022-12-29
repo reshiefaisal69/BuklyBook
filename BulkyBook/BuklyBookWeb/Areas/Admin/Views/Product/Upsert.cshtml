@@ -6,11 +6,18 @@
 
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    <div class="border p-3 mt-4 row">
-        <div class="row pb-2">
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+
+         <div class="border p-3 mt-4 row">
+
+        <div class="col-12 pb-2">
             <h2 class="text-primary">@(Model.Product.Id!=0?"Update":"Create") Product</h2>
             <hr />
         </div>
+        
         @* <div asp-validation-summary="All"></div>*@
         <div class="mb-3">
             <label asp-for=Product.Title></label>
@@ -52,18 +59,18 @@
             <input asp-for=Product.ListPrice100 class="form-control">
             <span asp-validation-for="Product.ListPrice100" class="text-bg-danger"></span>
         </div> <div class="mb-3">
-            <label asp-for=Product.ImageUrl></label>
+            <label asp-for=Product.ImageUrl></label><br />
             <input type="file" id="UploadBox" asp-for=Product.ImageUrl name="file" class="form-control">
         </div>
         <div class="mb-3 col-6">
-            <label asp-for=Product.CategoryId></label>
+            <label asp-for=Product.CategoryId></label><br />
             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="foem-select">
                 <option disabled selected>--Select Category--</option>
             </select>
             <span asp-validation-for="Product.CategoryId" class="text-bg-danger"></span>
         </div>
         <div class="mb-3 col-6">
-            <label asp-for=Product.CoverTypeId></label>
+            <label asp-for=Product.CoverTypeId></label><br />
             <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="foem-select">
                 <option disabled selected>--Select Cover Type--</option>
             </select>
@@ -82,6 +89,12 @@
             <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">
                 Back To List
             </a>
+        </div>
+    </div>
+        </div>
+        <div class="col-2 pt-4">
+            <img src="@Model.Product.ImageUrl" 
+              width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
         </div>
     </div>
 
