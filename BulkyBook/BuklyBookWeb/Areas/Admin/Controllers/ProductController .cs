@@ -58,7 +58,7 @@ namespace BuklyBookWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(ProductViewModel obj, IFormFile file)
+        public IActionResult Upsert(ProductViewModel obj, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
