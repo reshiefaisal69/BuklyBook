@@ -6,8 +6,8 @@
 
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    <input asp-for="Product.Id" hidden />
-    <input asp-for="Product.ImageUrl" hidden />
+    <input id="id" asp-for="Product.Id" hidden />
+    <input id="image" asp-for="Product.ImageUrl" hidden />
     <div class="row">
         <div class="col-10">
 
@@ -59,18 +59,18 @@
             <input asp-for=Product.ListPrice100 class="form-control">
             <span asp-validation-for="Product.ListPrice100" class="text-bg-danger"></span>
         </div> <div class="mb-3">
-            <label asp-for=Product.ImageUrl></label><br />
+            <label asp-for=Product.ImageUrl></label>
             <input type="file" id="UploadBox" asp-for=Product.ImageUrl name="file" class="form-control">
         </div>
         <div class="mb-3 col-6">
-            <label asp-for=Product.CategoryId></label><br />
+            <label asp-for=Product.CategoryId></label>
             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="foem-select">
                 <option disabled selected>--Select Category--</option>
             </select>
             <span asp-validation-for="Product.CategoryId" class="text-bg-danger"></span>
         </div>
         <div class="mb-3 col-6">
-            <label asp-for=Product.CoverTypeId></label><br />
+            <label asp-for=Product.CoverTypeId></label>
             <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList" class="foem-select">
                 <option disabled selected>--Select Cover Type--</option>
             </select>
