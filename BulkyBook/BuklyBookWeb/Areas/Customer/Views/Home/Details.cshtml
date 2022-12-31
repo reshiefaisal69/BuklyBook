@@ -21,7 +21,7 @@
                             <h5 class="text-muted">ISBN : @Model.Product.ISBN</h5>
                         </div>
                         <div class="row pl-2">
-                            <h5 class="text-muted pb-2">List Price: <strike>$@Model.Product.ListPrice.ToString("c")</strike></h5>
+                            <h5 class="text-muted pb-2">List Price: <strike>$@Model.Product.ListPrice.ToString("0.00")</strike></h5>
                         </div>
                         <div class="row text-center pl-2">
                             <div class="p-1 col-2 bg-secondary border-bottom">
@@ -42,13 +42,13 @@
                                 <div>Price</div>
                             </div>
                             <div class="p-1 col-2 bg-secondary">
-                                <div>@Model.Product.Price.ToString("c")</div>
+                                <div>$@Model.Product.Price.ToString("0.00")</div>
                             </div>
                             <div class="p-1 col-2 bg-secondary">
-                                <div>@Model.Product.ListPrice50.ToString("c")</div>
+                                <div>$@Model.Product.ListPrice50.ToString("0.00")</div>
                             </div>
                             <div class="p-1 col-2 bg-secondary">
-                                <div>@Model.Product.ListPrice100.ToString("c")</div>
+                                <div>$@Model.Product.ListPrice100.ToString("0.00")</div>
                             </div>
                         </div>
                         <div class="row pl-2">

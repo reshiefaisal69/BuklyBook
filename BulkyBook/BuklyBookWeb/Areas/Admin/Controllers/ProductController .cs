@@ -85,14 +85,16 @@ namespace BuklyBookWeb.Areas.Admin.Controllers
                 if (obj.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(obj.Product);
+                    TempData["success"] = "Product created Successfully";
 
                 }
                 else
                 {
                     _unitOfWork.Product.update(obj.Product);
+                    TempData["success"] = "Product updated Successfully";
                 }
                 _unitOfWork.Save();
-                TempData["success"] = "Product created Successfully";
+                
                 return RedirectToAction("Index");
             }
             else
