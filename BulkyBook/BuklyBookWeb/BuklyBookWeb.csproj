@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.3" />
+    <PackageReference Include="Stripe.net" Version="41.6.0" />
   </ItemGroup>
 
   <ItemGroup>
