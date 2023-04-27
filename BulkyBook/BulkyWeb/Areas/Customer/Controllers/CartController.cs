@@ -77,7 +77,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers {
 
         [HttpPost]
         [ActionName("Summary")]
-		public IActionResult SummaryPOST() 
+        [ValidateAntiForgeryToken]
+        public IActionResult SummaryPOST() 
         {
 			var claimsIdentity = (ClaimsIdentity)User.Identity;
 			var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -123,14 +124,19 @@ namespace BulkyBookWeb.Areas.Customer.Controllers {
                 //it is a regular customer account and we need to capture payment
                 //stripe logic
                 var domain = Request.Scheme+ "://"+ Request.Host.Value +"/";
-				var options = new SessionCreateOptions {
-					SuccessUrl = domain+ $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
-                    CancelUrl = domain+"customer/cart/index",
-					LineItems = new List<SessionLineItemOptions>(),
-					Mode = "payment",
-				};
+                var options = new SessionCreateOptions
+                {
+                    PaymentMethodTypes = new List<string>
+                {
+                    "card",
+                },
+                    LineItems = new List<SessionLineItemOptions>(),
+                    Mode = "payment",
+                    SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                    CancelUrl = domain + $"customer/cart/index",
+                };
 
-                foreach(var item in ShoppingCartVM.ShoppingCartList) {
+                foreach (var item in ShoppingCartVM.ShoppingCartList) {
                     var sessionLineItem = new SessionLineItemOptions {
                         PriceData = new SessionLineItemPriceDataOptions {
                             UnitAmount = (long)(item.Price * 100), // $20.50 => 2050
